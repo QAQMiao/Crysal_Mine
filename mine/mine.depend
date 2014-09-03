@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1409743134 source:c:\users\miaomiao\desktop\mike\first_É¨À×\mine\source.cpp
+	<stdio.h>
+	<windows.h>
+	<vector>
+	<stdlib.h>
+	<iostream>
+
