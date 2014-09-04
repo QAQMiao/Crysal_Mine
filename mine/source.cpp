@@ -7,9 +7,9 @@ using namespace std;
 
 struct point
 {
-    double x,y;	//´æ´¢¾ØĞÎÎ»ÖÃ
-    int area;  //¸Ãµã´óĞ¡
-    double vx,vy,ay;  //xËÙ¶È£¬y¼ÓËÙ¶È
+    double x,y;	//å­˜å‚¨çŸ©å½¢ä½ç½®
+    int area;  //è¯¥ç‚¹å¤§å°
+    double vx,vy,ay;  //xé€Ÿåº¦ï¼ŒyåŠ é€Ÿåº¦
     int color;
 };
 //vector<point> vec;
@@ -155,7 +155,7 @@ void coordinate()
 {
     x1=rand()*1366/(double)RAND_MAX;
     y1=rand()*768/(double)RAND_MAX;
-    blank=rand()%100;  //Ã¿¸öÑÌ»¨³öÏÖµÄÊ±¼ä¼ä¸ô
+    blank=rand()%100;  //æ¯ä¸ªçƒŸèŠ±å‡ºç°çš„æ—¶é—´é—´éš”
 }
 int cc=0;
 void Render(HDC buf)
@@ -165,12 +165,12 @@ void Render(HDC buf)
         cc++;
         cc%=6;
         time=0;
-        while(((x1*x1+y1*y1-x*x-y*y)<20)&&((x1*x1+y1*y1-x*x-y*y)>(-20))||y1>400) //Èç¹ûÁ½¸öÑÌ»¨ÖĞĞÄÀëµÃÌ«½ü¾ÍÉáµôÖØĞÂÈ¡
+        while(((x1*x1+y1*y1-x*x-y*y)<20)&&((x1*x1+y1*y1-x*x-y*y)>(-20))||y1>400) //å¦‚æœä¸¤ä¸ªçƒŸèŠ±ä¸­å¿ƒç¦»å¾—å¤ªè¿‘å°±èˆæ‰é‡æ–°å–
             coordinate();
         x=x1;
         y=y1;
-        int num=rand()%200+300;            //Ã¿¸öÑÌ»¨µÄ·ÖÖ§Êı
-        int basicarea=rand()%4+4;        //Ã¿¸ö·ÖÖ§ÉÏµÄÔ²µÄ»ù´¡´óĞ¡
+        int num=rand()%200+300;            //æ¯ä¸ªçƒŸèŠ±çš„åˆ†æ”¯æ•°
+        int basicarea=rand()%4+4;        //æ¯ä¸ªåˆ†æ”¯ä¸Šçš„åœ†çš„åŸºç¡€å¤§å°
 
         for(int i=0; i<num; i++)
         {
@@ -194,12 +194,13 @@ void Render(HDC buf)
         }
     }
     time++;
-    SelectObject(buf,bmp);//ÕâĞĞ²»ÓÃ¹Ü¡£ÎÒµÄ¿ò¼ÜÍü¼ÇÌí¼ÓÁË
+    SelectObject(buf,bmp);//è¿™è¡Œä¸ç”¨ç®¡ã€‚æˆ‘çš„æ¡†æ¶å¿˜è®°æ·»åŠ äº†
     SelectObject(buf,brush1);
     Rectangle(buf,0,0,1366,768);
     //Add your render code here.
     //SelectObject(buf,pen);
     SelectObject(buf,brush);
+    std::vector<int> commit;
     for(int i=0; i<vec1.size(); i++)
     {
         switch(vec1[i].color)
@@ -267,10 +268,18 @@ void Render(HDC buf)
         vec1[i].vy-=vec1[i].ay;
         if(vec1[i].x>1366||vec1[i].y>768)
         {
-            vector<point>::iterator it = vec1.begin()+i;
-            vec1.erase(it);
+            commit.push_back(i);
         }
     }
+    for(int i=0;i<commit.size();i++)
+    {
+        for(int j=i;(j + 1)<vec1.size();j++)
+        {
+            vec1[j] = vec1[j + 1];
+        }
+    }
+    for(int i=0;i<commit.size();i++)
+		if(vec1.empty() == false)
+			vec1.pop_back();
     Sleep(8);
-
 }
