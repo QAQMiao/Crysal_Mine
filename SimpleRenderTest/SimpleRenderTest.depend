@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1410076097 source:e:\projects\simplerendertest\simplerendertest\source.cpp
+	<windows.h>
+	<iostream>
+	"CircleSet.h"
+
+1410076130 source:e:\projects\simplerendertest\simplerendertest\circle.cpp
+	"Circle.h"
+
+1410075653 e:\projects\simplerendertest\simplerendertest\circle.h
+	<windows.h>
+	<cstdio>
+	<cstdlib>
+
+1410075965 source:e:\projects\simplerendertest\simplerendertest\circleset.cpp
+	"CircleSet.h"
+
+1410076092 e:\projects\simplerendertest\simplerendertest\circleset.h
+	"Circle.h"
+
+1410331466 source:c:\users\miaomiao\desktop\mike\crysal_mine\simplerendertest\circle.cpp
+	"Circle.h"
+
+1410330998 c:\users\miaomiao\desktop\mike\crysal_mine\simplerendertest\circle.h
+	<windows.h>
+	<cstdio>
+	<cstdlib>
+
+1410330998 source:c:\users\miaomiao\desktop\mike\crysal_mine\simplerendertest\circleset.cpp
+	"CircleSet.h"
+
+1410076092 c:\users\miaomiao\desktop\mike\crysal_mine\simplerendertest\circleset.h
+	"Circle.h"
+
+1412765467 source:c:\users\miaomiao\desktop\mike\crysal_mine\simplerendertest\source.cpp
+	<windows.h>
+	<iostream>
+	"CircleSet.h"
+

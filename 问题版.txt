@@ -2,25 +2,20 @@
 #include <windows.h>
 #include <vector>
 #include<stdlib.h>
+#include<queue>
 #include<iostream>
 using namespace std;
 
 struct point
 {
-<<<<<<< Updated upstream
-    double x,y;	//å­˜å‚¨çŸ©å½¢ä½ç½®
-    int area;  //è¯¥ç‚¹å¤§å°
-    double vx,vy,ay;  //xé€Ÿåº¦ï¼ŒyåŠ é€Ÿåº¦
-    int color;
-=======
     double x,y;	//´æ´¢¾ØĞÎÎ»ÖÃ
     int area;  //¸Ãµã´óĞ¡
     double vx,vy,ay;  //xËÙ¶È£¬y¼ÓËÙ¶È
-    int beforex[5],beforey[5];
-    int r,g,b;
-    int
->>>>>>> Stashed changes
+    int color;
+    int tt;
 };
+//vector<point> vec;
+vector<point> vec1;
 
 RECT g_rect = {0};
 HINSTANCE   g_hInst = NULL;
@@ -47,6 +42,13 @@ int main()
     buffer = CreateCompatibleDC(hdc);
     bmp = CreateCompatibleBitmap(hdc,g_rect.right,g_rect.bottom);
 
+//    point pp;
+//    for(int i=0; i<10; i++)
+//    {
+//        pp.x=rand()%10;
+//        pp.y=rand()%300;
+//        vec.push_back(pp);
+//    }
     while(WM_QUIT != msg.message)
     {
         if(PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
@@ -135,11 +137,11 @@ LRESULT CALLBACK WndProc( HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam 
 HPEN pen = CreatePen(PS_SOLID,1,RGB(255,0,0));
 HBRUSH brush = CreateSolidBrush(RGB(0,255,0));
 HBRUSH brush1 = CreateSolidBrush(RGB(0,0,0));
-HBRUSH brush2 = CreateSolidBrush(RGB(0,215,0));
-HBRUSH brush3 = CreateSolidBrush(RGB(0,170,0));
-HBRUSH brush4 = CreateSolidBrush(RGB(0,120,0));
-HBRUSH brush5 = CreateSolidBrush(RGB(0,65,0));
-HBRUSH brush6 = CreateSolidBrush(RGB(255,255,255));
+HBRUSH brush2 = CreateSolidBrush(RGB(252,252,252));
+HBRUSH brush3 = CreateSolidBrush(RGB(235,235,235));
+HBRUSH brush4 = CreateSolidBrush(RGB(213,213,213));
+HBRUSH brush5 = CreateSolidBrush(RGB(193,193,193));
+HBRUSH brush6 = CreateSolidBrush(RGB(175,175,175));
 HBRUSH b0 = CreateSolidBrush(RGB(210,0,210));
 HBRUSH b1 = CreateSolidBrush(RGB(0,255,255));
 HBRUSH b2 = CreateSolidBrush(RGB(255,0,255));
@@ -147,18 +149,18 @@ HBRUSH b3 = CreateSolidBrush(RGB(255,255,0));
 HBRUSH b4 = CreateSolidBrush(RGB(0,128,255));
 HBRUSH b5 = CreateSolidBrush(RGB(rand()%256,rand()%256,rand()%256));
 
+
+int beforex[5],beforey[5];
+int x=0,y=0,x1=0,y1=0;
 int time = 0,blank;
-void
+void coordinate()
 {
-<<<<<<< Updated upstream
     x1=rand()*1366/(double)RAND_MAX;
     y1=rand()*768/(double)RAND_MAX;
-    blank=rand()%100;  //æ¯ä¸ªçƒŸèŠ±å‡ºç°çš„æ—¶é—´é—´éš”
-=======
-
->>>>>>> Stashed changes
+    blank=rand()%100;  //Ã¿¸öÑÌ»¨³öÏÖµÄÊ±¼ä¼ä¸ô
 }
 int cc=0;
+queue <int> q;
 void Render(HDC buf)
 {
     if(!time||blank == time)
@@ -166,12 +168,12 @@ void Render(HDC buf)
         cc++;
         cc%=6;
         time=0;
-        while(((x1*x1+y1*y1-x*x-y*y)<20)&&((x1*x1+y1*y1-x*x-y*y)>(-20))||y1>400) //å¦‚æœä¸¤ä¸ªçƒŸèŠ±ä¸­å¿ƒç¦»å¾—å¤ªè¿‘å°±èˆæ‰é‡æ–°å–
+        while(((x1*x1+y1*y1-x*x-y*y)<20)&&((x1*x1+y1*y1-x*x-y*y)>(-20))||y1>400) //Èç¹ûÁ½¸öÑÌ»¨ÖĞĞÄÀëµÃÌ«½ü¾ÍÉáµôÖØĞÂÈ¡
             coordinate();
         x=x1;
         y=y1;
-        int num=rand()%200+300;            //æ¯ä¸ªçƒŸèŠ±çš„åˆ†æ”¯æ•°
-        int basicarea=rand()%4+4;        //æ¯ä¸ªåˆ†æ”¯ä¸Šçš„åœ†çš„åŸºç¡€å¤§å°
+        int num=rand()%200+300;            //Ã¿¸öÑÌ»¨µÄ·ÖÖ§Êı
+        int basicarea=rand()%4+4;        //Ã¿¸ö·ÖÖ§ÉÏµÄÔ²µÄ»ù´¡´óĞ¡
 
         for(int i=0; i<num; i++)
         {
@@ -183,155 +185,117 @@ void Render(HDC buf)
                 pnow.area=basicarea+2;
             else
                 pnow.area=basicarea-2;
-            pnow.vx=rand()*11/(double)RAND_MAX-5;
-            pnow.vy=rand()*11/(double)RAND_MAX-5;
+                pnow.vx=rand()*11/(double)RAND_MAX-5;
+                pnow.vy=rand()*11/(double)RAND_MAX-5;
             while((pnow.vx*pnow.vx+pnow.vy*pnow.vy)>25)
             {
                 pnow.vx=rand()*11/(double)RAND_MAX-5;
                 pnow.vy=rand()*11/(double)RAND_MAX-5;
             }
             pnow.ay=-0.2;
+            pnow.tt=1;
             vec1.push_back(pnow);
         }
     }
     time++;
-    SelectObject(buf,bmp);//è¿™è¡Œä¸ç”¨ç®¡ã€‚æˆ‘çš„æ¡†æ¶å¿˜è®°æ·»åŠ äº†
+    SelectObject(buf,bmp);//ÕâĞĞ²»ÓÃ¹Ü¡£ÎÒµÄ¿ò¼ÜÍü¼ÇÌí¼ÓÁË
     SelectObject(buf,brush1);
     Rectangle(buf,0,0,1366,768);
     //Add your render code here.
     //SelectObject(buf,pen);
     SelectObject(buf,brush);
-    std::vector<int> commit;
-<<<<<<< Updated upstream
     for(int i=0; i<vec1.size(); i++)
-=======
-    vec1[i].x+=vec1[i].vx;
-    vec1[i].y+=vec1[i].vy;
-    vec1[i].vy-=vec1[i].ay;
-    if(vec1[i].x>1366||vec1[i].y>768)
->>>>>>> Stashed changes
     {
-        commit.push_back(i);
-    }
-}
-for(int i=0; i<commit.size(); i++)
-{
-    for(int j=i; (j + 1)<vec1.size(); j++)
-    {
-        vec1[j] = vec1[j + 1];
-    }
-}
-for(int i=0; i<commit.size(); i++)
-    if(vec1.empty() == false)
-        vec1.pop_back();
-Sleep(8);
-}
-class Firework()
-{
-private:
-    vector<point>vec1;
-    int beforex[5],beforey[5];
-    int x=0,y=0,x1=0,y1=0;
-public:
-    void coordinate(int cor)
-    {
-        x1=rand()*1366/(double)RAND_MAX;
-        y1=rand()*768/(double)RAND_MAX;
-        blank=rand()%100;  //Ã¿¸öÑÌ»¨³öÏÖµÄÊ±¼ä¼ä¸ô
-    }
-    void draw()
-    {
-        for(iterator it=vec1.begin(); it!=vec1.end(); it++)
+        switch(vec1[i].color)
         {
-            switch((*it).color)
+        case 0:
+            SelectObject(buf,b0);
+            break;
+        case 1:
+            SelectObject(buf,b1);
+            break;
+        case 2:
+            SelectObject(buf,b2);
+            break;
+        case 3:
+            SelectObject(buf,b3);
+            break;
+        case 4:
+            SelectObject(buf,b4);
+            break;
+        case 5:
+            SelectObject(buf,brush);
+            break;
+        case 6:
+            SelectObject(buf,b5);
+        default:
+            SelectObject(buf,b1);
+            break;
+        }
+
+        Ellipse(buf,vec1[i].x,vec1[i].y,vec1[i].x + vec1[i].area,vec1[i].y + vec1[i].area);
+        if(vec1[i].tt<20)
+        vec1[i].tt++;
+        if(vec1[i].tt == 20)
+        {beforex[0]=vec1[i].x-vec1[i].vx;
+        beforey[0]=vec1[i].y-vec1[i].vy;
+        for(int i=4;i>0;i--)
+        {
+            beforex[i]=beforex[i-1]-vec1[i].vx;
+            beforey[i]=beforey[i-1]-vec1[i].vy;
+        }
+
+        for(int j=0; j<5; j++)
+        {
+            switch(j)
             {
             case 0:
-                SelectObject(buf,b0);
+                SelectObject(buf,brush2);
                 break;
             case 1:
-                SelectObject(buf,b1);
+                SelectObject(buf,brush3);
                 break;
             case 2:
-                SelectObject(buf,b2);
+                SelectObject(buf,brush4);
                 break;
             case 3:
-                SelectObject(buf,b3);
+                SelectObject(buf,brush5);
                 break;
             case 4:
-                SelectObject(buf,b4);
-                break;
-            case 5:
-                SelectObject(buf,brush);
-                break;
-            case 6:
-                SelectObject(buf,b5);
+                SelectObject(buf,brush6);
                 break;
             default:
-                SelectObject(buf,b1);
+                ;
                 break;
             }
-<<<<<<< Updated upstream
-            Ellipse(buf,beforex[j],beforey[j],beforex[j]+4,beforey[j]+4);
+            Ellipse(buf,beforex[j],beforey[j],beforex[j]+3,beforey[j]+3);
+        }
         }
         vec1[i].x+=vec1[i].vx;
         vec1[i].y+=vec1[i].vy;
         vec1[i].vy-=vec1[i].ay;
         if(vec1[i].x>1366||vec1[i].y>768)
         {
-            commit.push_back(i);
+            q.push(i);
+//            vector<point>::iterator it = vec1.begin()+i;
+//            vec1.erase(it);
         }
     }
-    for(int i=0;i<commit.size();i++)
+    int times=0;
+    while(!q.empty())
     {
-        for(int j=i;(j + 1)<vec1.size();j++)
+        for(int j=q.front();j<(vec1.size()-1);j++)
         {
-            vec1[j] = vec1[j + 1];
+            vec1[j]=vec1[j+1];
         }
+        q.pop();
+        times++;
     }
-    for(int i=0;i<commit.size();i++)
-		if(vec1.empty() == false)
-			vec1.pop_back();
+    for(int i=0;i<times;i++)
+    {
+        if(vec1.empty() == false)
+            vec1.pop_back();
+    }
     Sleep(8);
+
 }
-=======
-
-            Ellipse(buf,(*it).x,(*it).y,(*it).x + (*it).area,(*it).y + (*it).area);
-            for(int i=4; i>0; i--)
-            {
-                beforex[i]=beforex[i-1];
-                beforey[i]=beforey[i-1];
-            }
-            beforex[0]=(*it).x-(*it).vx;
-            beforey[0]=(*it).y-(*it).vy;
-            for(int j=0; j<5; j++)
-            {
-                switch(j)
-                {
-                case 0:
-                    SelectObject(buf,brush2);
-                    break;
-                case 1:
-                    SelectObject(buf,brush3);
-                    break;
-                case 2:
-                    SelectObject(buf,brush4);
-                    break;
-                case 3:
-                    SelectObject(buf,brush5);
-                    break;
-                case 4:
-                    SelectObject(buf,brush6);
-                    break;
-                default:
-                    ;
-                    break;
-                }
-                Ellipse(buf,beforex[j],beforey[j],beforex[j]+4,beforey[j]+4);
-            }
-        }
-    }
-};
-
-
-
->>>>>>> Stashed changes
